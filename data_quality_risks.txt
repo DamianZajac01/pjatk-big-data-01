@@ -1,0 +1,19 @@
+### Identified 3 Data Quality Risks
+
+During the development of the Medallion Architecture (Bronze-Silver-Gold) ETL pipeline, three critical technical risks were identified and mitigated to ensure the integrity of the final analytical results:
+
+1. Handling inconsistent CSV structures
+
+The raw data wasn't uniform, older files had 17 columns, while newer ones included an 18th (congestion_surcharge). A standard COPY command would simply crash on such a mismatch.
+
+Fix: I designed the Bronze layer to be schema-agnostic, mapping missing columns to NULL. The actual structure is enforced only later in the Silver layer through explicit casting, ensuring the pipeline never breaks during ingestion.
+
+2. Filtering corrupted records
+The raw dataset was "dirty". I found trips dated in the year 2090 and records with negative fares or negative distances. Leaving these in would have rendered the final profit analysis useless.
+
+Fix: I implemented a set of Sanity Checks during the transition to Silver. This logic automatically drops any records that violate physical reality (e.g., year outside 2019-2020 or negative payment amounts), ensuring the Gold layer remains a "single source of truth."
+
+3. Solving the "Big Data" bottleneck (Performance)
+At this scale, simple queries were taking forever because the database was performing "full table scans" for every report.
+
+Fix: To make the Gold layer usable, I implemented B-Tree indexes on the pickup_time and key join columns. This shifted the database from "reading everything" to "finding exactly what's needed," cutting down report generation time from minutes to seconds.

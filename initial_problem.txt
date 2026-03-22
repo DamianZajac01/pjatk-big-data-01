@@ -1,0 +1,11 @@
+### Initial Problem Statement (Analytical Goal)
+
+The primary objective of this project is to optimize the revenue strategy for New York City taxi drivers by identifying geographical zones with the highest tipping potential and profitability. 
+
+In addition to identifying high-value positioning, the project includes a comprehensive analysis of the COVID-19 pandemic's impact on NYC taxi trends. By comparing data from 2019 (pre-pandemic) and 2020 (pandemic onset), the study evaluates whether the pandemic resulted in a reduction in tipping amounts and percentages.
+
+By analyzing large-scale trip data, the project aims to pinpoint high-value areas and timeframes, allowing drivers to maximize their earnings through data-driven positioning in a post-pandemic landscape.
+
+### Data Source
+The analysis is based on the "New York Yellow Taxi Trip Data (2019-2020)" dataset.
+Source: https://www.kaggle.com/datasets/microize/newyork-yellow-taxi-trip-data-2020-2019
